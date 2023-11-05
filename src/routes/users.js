@@ -1,9 +1,17 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const passport = require('passport');
+
 // LOGIN
 router.get('/users/signin', (req, res) => {
     res.render('users/signin');
 });
+
+router.post('/users/signin', passport.authenticate('local', {
+    successRedirect: '/notes',
+    failureRedirect: '/users/signin',
+    failureFlash: true,
+})); // autenticación la traemos de passport
 
 // REGISTRO
 router.get('/users/signup', (req, res) => {
@@ -24,7 +32,6 @@ router.post('/users/signup', async (req, res) => {
         errors.push({ text: 'Password must be at least 4 characters' })
     }
     if (emailUser) {
-        console.log(emailUser, "Existeeee");
         errors.push({ text: 'Email already exists' });
     }
     if (errors.length > 0) {

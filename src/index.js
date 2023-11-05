@@ -4,10 +4,12 @@ const exphbs = require('express-handlebars'); // es una función a configurar
 const methodOverride = require('method-override');
 const session = require('express-session'); // es una función a configurar
 const flash = require('connect-flash'); // modulo para enviar mensajes en multiples vistas
+const passport = require('passport');
 
 //Init
 const app = express();
 require('./database');
+require('./config/passport');
 
 //Settings
 app.set('port', process.env.PORT || 3000);
@@ -28,12 +30,16 @@ app.use(session({ // Para guardar los datos del usuario al autenticarse
     resave: true,
     saveUninitialized: true,
 }));
+// Configuración de autenticación
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash()); // envía mensajes en multiples vistas
 
 //Global variables
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
 
     next(); // dejarlo al final antes de terminar la función para que no se quede cargando el navegador aquí y continué con lo siguiente
 });
