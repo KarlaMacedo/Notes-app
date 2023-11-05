@@ -25,7 +25,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {// con base al id guardado pueden pasar dos encontrarlo y devolverlo o si hay un error devolver el error
     try {
-        const user = await User.findById(id);
+        const user = await User.findOne({_id : id});
         done(null, user);
     } catch (err) {
         done(err, null);

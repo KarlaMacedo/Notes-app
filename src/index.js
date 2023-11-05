@@ -40,6 +40,7 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.user = req.user || null;
 
     next(); // dejarlo al final antes de terminar la función para que no se quede cargando el navegador aquí y continué con lo siguiente
 });

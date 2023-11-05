@@ -21,7 +21,7 @@
   {{else}}
   <div class="card col-md-4 mx-auto d-flex align-items-center">
     <div class="card-body ">
-      <h1>Hello {{user.name}}</h1>
+      <h1>Hello {{#if user}}{{user.name}}{{else}}Guest{{/if}} !</h1>
       <p clsss="lead">There are not Notes yet.</p>
       <a href="/notes/add" class="btn btn-success btn-block w-100">Create One!</a>
     </div>
