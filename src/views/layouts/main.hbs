@@ -12,9 +12,9 @@
   </head>
   <body>
 
-    <p>Navigation</p>
+  {{> navigations}}
 
-    <main class="container">
+    <main class="container p-4">
       {{> messages}}  {{!-- forma de llamar un partial en handle bar, son templetes reutilizables a las que se puede acceder desde cualquier otro templete --}}
       {{> errors}} 
       {{{body}}} {{!-- Lo unico que va a cambiar es lo que esté dentro de las tres llaves --}}
