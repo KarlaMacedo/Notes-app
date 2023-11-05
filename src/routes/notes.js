@@ -24,6 +24,7 @@ router.post('/notes/new-note', isAuthenticated, async (req, res) => {
         })
     } else {
         const newNote = new Note({ title, description });
+        newNote.user = req.user.id; // agregar id del usuario para poder filtrar las notas y mostrar solo las de cada usuario
         await newNote.save();
         req.flash('success_msg', "Note saved successfully");
         res.redirect('/notes');
@@ -32,7 +33,7 @@ router.post('/notes/new-note', isAuthenticated, async (req, res) => {
 
 //NOTAS
 router.get('/notes', isAuthenticated, async (req, res) => {
-    const notes = await Note.find().lean().sort({date: 'desc'}); // traer todos los datos, pero puedo pasarle dentro como objeto los parámetros especificos a traer. al agregar .lean() evitas que se traiga info inecesaria
+    const notes = await Note.find({user: req.user.id}).lean().sort({date: 'desc'}); // traer todos los datos, pero puedo pasarle dentro como objeto los parámetros especificos a traer. al agregar .lean() evitas que se traiga info inecesaria
     console.log(notes);
     res.render('notes/all-notes', { notes });
 });
