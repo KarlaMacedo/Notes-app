@@ -3,6 +3,7 @@ const path = require('path');
 const exphbs = require('express-handlebars'); // es una función a configurar
 const methodOverride = require('method-override');
 const session = require('express-session'); // es una función a configurar
+const flash = require('connect-flash'); // modulo para enviar mensajes en multiples vistas
 
 //Init
 const app = express();
@@ -21,14 +22,21 @@ app.set('view engine', '.hbs'); // Configurar motor de las vistas
 
 //Middlewares
 app.use(express.urlencoded({extended: false})); // Para poder recibir los datos del form, extended false porque no voy a recibir imgs
-app.use(methodOverride('_method'));
+app.use(methodOverride('_method')); // revisa las peticiones de los inputs ocultos
 app.use(session({ // Para guardar los datos del usuario al autenticarse
     secret: 'mySecretApp',
     resave: true,
     saveUninitialized: true,
-}))
+}));
+app.use(flash()); // envía mensajes en multiples vistas
 
 //Global variables
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+
+    next(); // dejarlo al final antes de terminar la función para que no se quede cargando el navegador aquí y continué con lo siguiente
+});
 
 //Routes
 app.use(require('./routes/index'));

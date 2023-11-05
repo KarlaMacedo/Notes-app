@@ -15,7 +15,7 @@
     <p>Navigation</p>
 
     <main class="container">
-
+      {{> messages}}  {{!-- forma de llamar un partial en handle bar, son templetes reutilizables a las que se puede acceder desde cualquier otro templete --}}
       {{{body}}} {{!-- Lo unico que va a cambiar es lo que esté dentro de las tres llaves --}}
 
     </main>

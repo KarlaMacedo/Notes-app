@@ -1,0 +1,30 @@
+<div class="row d-flex align-items-center">
+  {{#each notes}}
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title d-flex justify-content-between align-items-center">
+          {{ title }} 
+          {{!-- PUT REQUEST --}}
+          <a href="/notes/edit/{{_id}}"><i class="fas fa-edit"></i></a>
+        </h4>
+        <p>{{ description }} </p>
+        <!-- DELETE REQUEST -->
+        <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST">
+            {{!-- Input oculto que hace que el servidor revise la información y que por override actualice al método delete --}}
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger center btn-md w-100" >Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{else}}
+  <div class="card col-md-4 mx-auto d-flex align-items-center">
+    <div class="card-body ">
+      <h1>Hello {{user.name}}</h1>
+      <p clsss="lead">There are not Notes yet.</p>
+      <a href="/notes/add" class="btn btn-success btn-block w-100">Create One!</a>
+    </div>
+  </div>
+  {{/each}}
+</div>
