@@ -1,5 +1,5 @@
 # Usa una imagen base de Node.js
-FROM node:14
+FROM node:16
 
 # Establece el directorio de trabajo en la carpeta de la aplicación
 WORKDIR /usr/src/app
@@ -18,3 +18,9 @@ EXPOSE 3000
 
 # Comando para iniciar la aplicación
 CMD ["npm", "start"]
+
+# Usa una imagen de MongoDB
+FROM mongo:latest
+
+# Exponer el puerto de MongoDB
+EXPOSE 27017
