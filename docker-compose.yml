@@ -1,20 +1,16 @@
 version: '3.8'
 
 services:
-  mongodb:
-    build:
-      context: .
-      dockerfile: Dockerfile.mongo
-    container_name: mongodb-container
-    ports:
-      - "27017:27017"
-
-  notes-app:
+  nodejs_app:
     build:
       context: .
       dockerfile: Dockerfile.node
-    container_name: notes-app-container
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
