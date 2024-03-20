@@ -18,3 +18,9 @@ EXPOSE 3000
 
 # Comando para iniciar la aplicación
 CMD ["npm", "start"]
+
+# Segunda etapa: Usa una imagen de MongoDB
+FROM mongo:latest
+
+# Exponer el puerto de MongoDB
+EXPOSE 27017
